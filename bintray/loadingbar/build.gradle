@@ -1,0 +1,105 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+apply plugin: 'com.jfrog.bintray'
+
+version = "1.0"
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+
+def siteUrl = 'https://github.com/dengyuhan/LoadingBar'
+def gitUrl = 'https://github.com/dengyuhan/LoadingBar.git'
+group = "com.dyhdyh.loadingbar"
+
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name '灵活显示和隐藏Loading的组件'     //项目描述
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'dengyuhan'        //填写开发者的一些基本信息
+                        name 'dengyuhan'    //填写开发者的一些基本信息
+                        email '22309946@qq.com'   //填写开发者的一些基本信息
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/8/docs/api"
+    }
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "LoadingBar"    //发布到JCenter上的项目名字，必须填写
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}

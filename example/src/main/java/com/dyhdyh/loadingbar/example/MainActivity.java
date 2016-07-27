@@ -1,7 +1,9 @@
 package com.dyhdyh.loadingbar.example;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.dyhdyh.widget.loadingbar.LoadingBar;
@@ -51,5 +53,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void hideLoading(View v){
         LoadingBar.hide();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_MENU){
+            startActivity(new Intent(this,ExampleActivity.class));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

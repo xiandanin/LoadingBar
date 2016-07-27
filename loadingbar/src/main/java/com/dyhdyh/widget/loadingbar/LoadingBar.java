@@ -1,6 +1,7 @@
 package com.dyhdyh.widget.loadingbar;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -33,6 +34,9 @@ public class LoadingBar {
         RelativeLayout relativeLayout=new RelativeLayout(mContext);
         relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
         ProgressBar progressBar=new ProgressBar(mContext);
+        if (Build.VERSION.SDK_INT<=Build.VERSION_CODES.LOLLIPOP){
+            progressBar.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_vertical));
+        }
         RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.CENTER_IN_PARENT);
         progressBar.setLayoutParams(lp);
@@ -51,9 +55,7 @@ public class LoadingBar {
     }
 
     public static LoadingBar show(View parent, View loadingView, View.OnClickListener onClickListener) {
-        if (mLoadingBar==null){
-            mLoadingBar = new LoadingBar(findSuitableParent(parent));
-        }
+        mLoadingBar = new LoadingBar(findSuitableParent(parent));
         mLoadingBar.mParent.removeView(mLoadingBar.mView);
         if (loadingView==null){
             mLoadingBar.mView=mLoadingBar.createDefaultView();

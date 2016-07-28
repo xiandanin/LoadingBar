@@ -5,7 +5,7 @@
 
 ###Android Studio - 在build.gradle中引入
 ```java
-compile 'com.dyhdyh.loadingbar:loadingbar:1.0'
+compile 'com.dyhdyh.loadingbar:loadingbar:1.1'
 ```
 <br/>
 ####Example

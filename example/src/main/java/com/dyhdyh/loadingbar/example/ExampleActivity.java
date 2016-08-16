@@ -22,13 +22,13 @@ public class ExampleActivity extends AppCompatActivity{
         setContentView(R.layout.activity_example);
         lv= (ListView) this.findViewById(R.id.lv);
 
-        LoadingBar.show(getWindow().getDecorView());
+        final LoadingBar loadingBar = LoadingBar.show(getWindow().getDecorView());
 
         lv.postDelayed(new Runnable() {
             @Override
             public void run() {
                 lv.setAdapter(new ArrayAdapter<String>(ExampleActivity.this,android.R.layout.simple_list_item_1,testData()));
-                LoadingBar.hide();
+                loadingBar.cancel();
             }
         },2000);
     }

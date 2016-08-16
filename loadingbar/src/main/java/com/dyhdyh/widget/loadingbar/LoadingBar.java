@@ -2,84 +2,139 @@ package com.dyhdyh.widget.loadingbar;
 
 import android.content.Context;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * 加载进度
+ *
  * @author dengyuhan
- * <p>可用于FrameLayout、RelativeLayout、DrawerLayout、CoordinatorLayout<p>
- * github https://github.com/dengyuhan
- * version 1.0
- * create 2016/6/22 17:16
+ *         <p>可用于FrameLayout、RelativeLayout、DrawerLayout、CoordinatorLayout<p>
+ *         github https://github.com/dengyuhan
+ *         version 1.0
+ *         create 2016/6/22 17:16
  */
 public class LoadingBar {
-    public static LoadingBar mLoadingBar;
+    /**
+     * LoadingBar管理
+     * key=父节点;value=LoadingBar
+     */
+    private static final Map<View, LoadingBar> mLoadingBars = new LinkedHashMap<>();
 
-    private final ViewGroup mParent;
-    private final Context mContext;
+    private ViewGroup mParent;
+    private Context mContext;
     private View mView;
-
-    private final int backgroundColor=0xEEEEEE;
 
     private LoadingBar(ViewGroup parent) {
         mParent = parent;
         mContext = parent.getContext();
     }
 
-    private View createDefaultView() {
-        RelativeLayout relativeLayout=new RelativeLayout(mContext);
-        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
-        ProgressBar progressBar=new ProgressBar(mContext);
-        if (Build.VERSION.SDK_INT<=Build.VERSION_CODES.LOLLIPOP){
-            progressBar.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_vertical));
-        }
-        RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-        progressBar.setLayoutParams(lp);
-        relativeLayout.addView(progressBar);
-        return relativeLayout;
+
+    /**
+     * 改名叫cancelAll
+     */
+    @Deprecated
+    public static void hide() {
+        cancelAll();
     }
 
-    public static void hide() {
-        if (mLoadingBar!=null){
-            mLoadingBar.hideView();
+    /**
+     * 取消所有loading
+     */
+    public static void cancelAll() {
+        for (Map.Entry<View,LoadingBar> entry:mLoadingBars.entrySet()) {
+            entry.getValue().cancel();
+        }
+    }
+
+    /**
+     * 根据父节点取消loading
+     * @param parent show传过来的父节点
+     */
+    public static void cancel(View parent) {
+        mLoadingBars.get(parent).cancel();
+    }
+
+
+    /**
+     * 取消loading
+     */
+    public void cancel() {
+        if (mView != null) {
+            hideView();
         }
     }
 
     public static LoadingBar show(View parent) {
-        return show(parent,null,null);
+        return show(parent, null, null);
     }
 
     public static LoadingBar show(View parent, View loadingView, View.OnClickListener onClickListener) {
-        mLoadingBar = new LoadingBar(findSuitableParent(parent));
-        mLoadingBar.mParent.removeView(mLoadingBar.mView);
-        if (loadingView==null){
-            mLoadingBar.mView=mLoadingBar.createDefaultView();
-        }else{
-            mLoadingBar.mView=loadingView;
+        //如果已经有Loading在显示了
+        LoadingBar loadingBar;
+        if (mLoadingBars.containsKey(parent)) {
+            loadingBar = mLoadingBars.get(parent);
+        } else {
+            //如果没有就新建一个
+            loadingBar = new LoadingBar(findSuitableParent(parent));
+            mLoadingBars.put(parent, loadingBar);
         }
+        //
+        loadingBar.mParent.removeView(loadingBar.mView);
+        if (loadingView == null) {
+            loadingBar.mView = loadingBar.createDefaultLoadingView();
+        } else {
+            loadingBar.mView = loadingView;
+        }
+        loadingBar.mParent.addView(loadingBar.mView);
         if (onClickListener!=null){
-            mLoadingBar.mView.setOnClickListener(onClickListener);
+            loadingBar.mView.setOnClickListener(onClickListener);
         }
-        mLoadingBar.mParent.addView(mLoadingBar.mView);
-        mLoadingBar.mView.setBackgroundColor(mLoadingBar.backgroundColor);
-        mLoadingBar.showView();
-        return mLoadingBar;
+        loadingBar.showView();
+        return loadingBar;
     }
 
     private static ViewGroup findSuitableParent(View parent) {
-        if (parent==null){
+        if (parent == null) {
             return null;
         }
-        if (parent instanceof FrameLayout||parent instanceof RelativeLayout||"android.support.v4.widget.DrawerLayout".equals(parent.getClass().getName())||"android.support.design.widget.CoordinatorLayout".equals(parent.getClass().getName())) {
+        if (parent instanceof FrameLayout || parent instanceof RelativeLayout || "android.support.v4.widget.DrawerLayout".equals(parent.getClass().getName()) || "android.support.design.widget.CoordinatorLayout".equals(parent.getClass().getName())) {
             return (ViewGroup) parent;
-        }else{
-            throw new IllegalStateException("parent 必须是FrameLayout|RelativeLayout|DrawerLayout|CoordinatorLayout");
+        } else {
+            View suitableParent;
+            do {
+                final ViewParent viewParent = parent.getParent();
+                suitableParent = viewParent instanceof View ? (View) viewParent : null;
+            } while (suitableParent != null);
+            return (ViewGroup) suitableParent;
         }
+    }
+
+
+    public View createDefaultLoadingView() {
+        FrameLayout relativeLayout = new FrameLayout(mContext);
+        relativeLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ProgressBar progressBar = new ProgressBar(mContext);
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            progressBar.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.loadingbar_progressbar_vertical));
+        }
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        //lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+        lp.gravity= Gravity.CENTER;
+        progressBar.setLayoutParams(lp);
+        relativeLayout.addView(progressBar);
+        int color = relativeLayout.getResources().getColor(R.color.bg_loading);
+        relativeLayout.setBackgroundColor(color);
+        return relativeLayout;
     }
 
     final void showView() {

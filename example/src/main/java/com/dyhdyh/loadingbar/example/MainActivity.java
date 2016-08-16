@@ -10,6 +10,7 @@ import com.dyhdyh.widget.loadingbar.LoadingBar;
 
 public class MainActivity extends AppCompatActivity {
     View frameLayout;
+    LoadingBar loadingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void showLoading(View v){
-        LoadingBar.show(frameLayout);
+        loadingBar=LoadingBar.show(frameLayout);
     }
 
     /**
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void showCustomLoading(View v){
-        LoadingBar.show(frameLayout,View.inflate(this,R.layout.custom_loading,null),null);
+        loadingBar=LoadingBar.show(frameLayout,View.inflate(this,R.layout.custom_loading,null),null);
     }
 
     /**
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void showClickLoading(View v){
-        LoadingBar.show(frameLayout, View.inflate(this, R.layout.custom_error, null), new View.OnClickListener() {
+        loadingBar=LoadingBar.show(frameLayout, View.inflate(this, R.layout.custom_error, null), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //在这里处理点击LoadingBar后的要做的操作
@@ -52,8 +53,18 @@ public class MainActivity extends AppCompatActivity {
      * @param v
      */
     public void hideLoading(View v){
-        LoadingBar.hide();
+        loadingBar.cancel();
     }
+
+    /**
+     * 多Fragment显示Loading
+     * @param v
+     */
+    public void multiLoading(View v){
+        startActivity(new Intent(this,MutiFragmentActivity.class));
+    }
+
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

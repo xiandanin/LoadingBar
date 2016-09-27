@@ -17,9 +17,9 @@ import java.util.Map;
  * 加载进度
  *
  * @author dengyuhan
- *         <p>可用于FrameLayout、RelativeLayout、DrawerLayout、CoordinatorLayout<p>
+ *         <p>可用于FrameLayout、RelativeLayout、DrawerLayout、CoordinatorLayout、CardView<p>
  *         github https://github.com/dengyuhan
- *         version 1.0
+ *         version 1.3
  *         create 2016/6/22 17:16
  */
 public class LoadingBar {
@@ -51,13 +51,14 @@ public class LoadingBar {
      * 取消所有loading
      */
     public static void cancelAll() {
-        for (Map.Entry<View,LoadingBar> entry:mLoadingBars.entrySet()) {
+        for (Map.Entry<View, LoadingBar> entry : mLoadingBars.entrySet()) {
             entry.getValue().cancel();
         }
     }
 
     /**
-     * 根据父节点取消loading
+     * 根据父节点取消单个loading
+     *
      * @param parent show传过来的父节点
      */
     public static void cancel(View parent) {
@@ -96,7 +97,7 @@ public class LoadingBar {
             loadingBar.mView = loadingView;
         }
         loadingBar.mParent.addView(loadingBar.mView);
-        if (onClickListener!=null){
+        if (onClickListener != null) {
             loadingBar.mView.setOnClickListener(onClickListener);
         }
         loadingBar.showView();
@@ -107,16 +108,19 @@ public class LoadingBar {
         if (parent == null) {
             return null;
         }
-        if (parent instanceof FrameLayout || parent instanceof RelativeLayout || "android.support.v4.widget.DrawerLayout".equals(parent.getClass().getName()) || "android.support.design.widget.CoordinatorLayout".equals(parent.getClass().getName())) {
-            return (ViewGroup) parent;
-        } else {
-            View suitableParent;
-            do {
-                final ViewParent viewParent = parent.getParent();
+        View suitableParent = parent;
+        do {
+            if (suitableParent instanceof FrameLayout || suitableParent instanceof RelativeLayout ||
+                    "android.support.v4.widget.DrawerLayout".equals(suitableParent.getClass().getName()) ||
+                    "android.support.design.widget.CoordinatorLayout".equals(suitableParent.getClass().getName()) ||
+                    "android.support.v7.widget.CardView".equals(suitableParent.getClass().getName())) {
+                return (ViewGroup) suitableParent;
+            } else {
+                final ViewParent viewParent = suitableParent.getParent();
                 suitableParent = viewParent instanceof View ? (View) viewParent : null;
-            } while (suitableParent != null);
-            return (ViewGroup) suitableParent;
-        }
+                return (ViewGroup) suitableParent;
+            }
+        } while (suitableParent != null);
     }
 
 
@@ -129,7 +133,7 @@ public class LoadingBar {
         }
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         //lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-        lp.gravity= Gravity.CENTER;
+        lp.gravity = Gravity.CENTER;
         progressBar.setLayoutParams(lp);
         relativeLayout.addView(progressBar);
         int color = relativeLayout.getResources().getColor(R.color.bg_loading);

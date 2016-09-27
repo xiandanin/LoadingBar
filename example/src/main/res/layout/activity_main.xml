@@ -36,7 +36,13 @@
 
     <Button
         android:onClick="multiLoading"
-        android:text="多Fragment显示Loading"
+        android:text="多页面显示Loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:onClick="listLoading"
+        android:text="列表显示Loading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

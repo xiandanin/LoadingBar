@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 多页面的Loading
  * author  dengyuhan
  * created 2016/8/16 9:41
  */

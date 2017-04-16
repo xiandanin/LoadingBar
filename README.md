@@ -54,6 +54,19 @@ LoadingDialog.cancel();
 ```
 ![](Screenshot/loadingdialog.gif)
 
+#### 自定义Factory
+```java
+public class CustomLoadingFactory implements LoadingFactory {
+
+    @Override
+    public View onCreateView(ViewGroup parent) {
+        View loadingView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_custom, parent,false);
+        return loadingView;
+    }
+}
+```
+
+
 #### 全局配置
 ```java
 //自定义样式并应用于全局

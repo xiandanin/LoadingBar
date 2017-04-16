@@ -1,6 +1,6 @@
 # LoadingBar
 
-## 示例apk
+### 示例apk
 ![](loadingbar-example.png)
 
 ## 快速开始

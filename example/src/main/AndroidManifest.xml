@@ -16,8 +16,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MutiFragmentActivity"/>
-        <activity
             android:name=".ListLoadingActivity"/>
         <activity
             android:name=".LoadingBarActivity"

@@ -10,7 +10,7 @@
         android:id="@+id/iv_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher_d" />
 
     <TextView
         android:id="@+id/tv_message"

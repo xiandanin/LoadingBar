@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public final class LoadingBar implements ILoadingBar {
 
-    private static final Map<View, LoadingBar> mLoadingBars = new HashMap<>();
+    private static final Map<View, LoadingBar> LOADINGBARS = new HashMap<>();
 
     private ViewGroup mParent;
     private View mView;
@@ -84,12 +84,12 @@ public final class LoadingBar implements ILoadingBar {
 
     public static LoadingBar make(View parent, LoadingFactory factory) {
         //如果已经有Loading在显示了
-        if (mLoadingBars.containsKey(parent)) {
-            LoadingBar loadingBar = mLoadingBars.get(parent);
+        if (LOADINGBARS.containsKey(parent)) {
+            LoadingBar loadingBar = LOADINGBARS.get(parent);
             loadingBar.mParent.removeView(loadingBar.mView);
         }
         LoadingBar newLoadingBar = new LoadingBar(findSuitableParent(parent), factory);
-        mLoadingBars.put(parent, newLoadingBar);
+        LOADINGBARS.put(parent, newLoadingBar);
         return newLoadingBar;
     }
 
@@ -100,18 +100,18 @@ public final class LoadingBar implements ILoadingBar {
      * @param parent show传过来的父节点
      */
     public static void cancel(View parent) {
-        LoadingBar loadingBar = mLoadingBars.get(parent);
+        LoadingBar loadingBar = LOADINGBARS.get(parent);
         if (loadingBar != null) {
             loadingBar.cancel();
         }
-        mLoadingBars.remove(parent);
+        LOADINGBARS.remove(parent);
     }
 
     /**
      * 取消所有loading
      */
     private static void cancelAll() {
-        Iterator<Map.Entry<View, LoadingBar>> it = mLoadingBars.entrySet().iterator();
+        Iterator<Map.Entry<View, LoadingBar>> it = LOADINGBARS.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<View, LoadingBar> entry = it.next();
             cancel(entry.getKey());
@@ -120,12 +120,12 @@ public final class LoadingBar implements ILoadingBar {
 
 
     private static void release() {
-        Iterator<Map.Entry<View, LoadingBar>> it = mLoadingBars.entrySet().iterator();
+        Iterator<Map.Entry<View, LoadingBar>> it = LOADINGBARS.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry<View, LoadingBar> entry = it.next();
             Context context = entry.getKey().getContext();
             if (context instanceof Activity&&((Activity) context).isFinishing()){
-                mLoadingBars.remove(entry.getKey());
+                LOADINGBARS.remove(entry.getKey());
             }
         }
     }

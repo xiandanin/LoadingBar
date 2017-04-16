@@ -2,7 +2,6 @@ package com.dyhdyh.loadingbar.example;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,7 +14,7 @@ import com.dyhdyh.widget.loading.bar.OnLoadingBarListener;
  * author  dengyuhan
  * created 2017/4/16 11:38
  */
-public class LoadingBarActivity extends AppCompatActivity {
+public class LoadingBarActivity extends BaseActivity {
     private View mParent;
 
     @Override

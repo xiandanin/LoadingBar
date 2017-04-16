@@ -3,6 +3,7 @@ package com.dyhdyh.widget.loading.factory;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Build;
 
 import com.dyhdyh.widget.loading.R;
 
@@ -14,7 +15,13 @@ public class MaterialDialogFactory implements DialogFactory {
 
     @Override
     public Dialog onCreateDialog(Context context) {
-        ProgressDialog dialog = new ProgressDialog(context, R.style.Dialog_AppCompat_Loading);
+        ProgressDialog dialog;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog = new ProgressDialog(context, R.style.Dialog_AppCompat_Loading);
+        } else {
+            dialog = new ProgressDialog(context);
+            dialog.setProgressStyle(android.support.v7.appcompat.R.style.Widget_AppCompat_ProgressBar);
+        }
         dialog.setMessage(context.getText(R.string.loading_default_message));
         dialog.setCancelable(false);
         return dialog;

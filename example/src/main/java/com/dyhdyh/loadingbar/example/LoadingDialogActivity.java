@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,7 +17,7 @@ import com.dyhdyh.widget.loading.dialog.LoadingDialog;
  * author  dengyuhan
  * created 2017/4/16 04:41
  */
-public class LoadingDialogActivity extends AppCompatActivity {
+public class LoadingDialogActivity extends BaseActivity {
     private EditText edMessage;
     private CheckBox cbCancelable;
 
@@ -34,6 +33,7 @@ public class LoadingDialogActivity extends AppCompatActivity {
 
     public void clickDefault(View v) {
         LoadingDialog.make(this).show();
+
 
         mHandler.postDelayed(new Runnable() {
             @Override

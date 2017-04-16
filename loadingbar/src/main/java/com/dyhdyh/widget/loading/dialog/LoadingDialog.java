@@ -1,7 +1,9 @@
 package com.dyhdyh.widget.loading.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 
 import com.dyhdyh.widget.loading.LoadingConfig;
 import com.dyhdyh.widget.loading.factory.DialogFactory;
@@ -11,7 +13,7 @@ import com.dyhdyh.widget.loading.factory.DialogFactory;
  * created 2017/4/16 03:59
  */
 public class LoadingDialog implements ILoadingDialog {
-    private static LoadingDialog mLoadingDialog;
+    private static LoadingDialog LOADINGDIALOG;
 
     private Dialog mDialog;
     private DialogFactory mFactory;
@@ -27,11 +29,15 @@ public class LoadingDialog implements ILoadingDialog {
 
     @Override
     public void show() {
-        mDialog.show();
+        if (isValid() && !mDialog.isShowing()) {
+            mDialog.show();
+        }
     }
 
     public void cancelDialog() {
-        mDialog.cancel();
+        if (isValid() && mDialog.isShowing()) {
+            mDialog.cancel();
+        }
     }
 
 
@@ -52,22 +58,37 @@ public class LoadingDialog implements ILoadingDialog {
         return this;
     }
 
+    private boolean isValid() {
+        if (mDialog != null) {
+            Context context = mDialog.getContext();
+            if (context instanceof ContextWrapper){
+                context = ((ContextWrapper) context).getBaseContext();
+            }
+            if (context instanceof Activity) {
+                if (!((Activity) context).isFinishing()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public static LoadingDialog make(Context context) {
         return make(context, LoadingConfig.getDialogFactory());
     }
 
     public static LoadingDialog make(Context context, DialogFactory factory) {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.cancel();
+        if (LOADINGDIALOG != null) {
+            LOADINGDIALOG.cancel();
         }
-        mLoadingDialog = new LoadingDialog(context, factory);
-        return mLoadingDialog;
+        LOADINGDIALOG = new LoadingDialog(context, factory);
+        return LOADINGDIALOG;
     }
 
 
     public static void cancel() {
-        mLoadingDialog.cancelDialog();
+        LOADINGDIALOG.cancelDialog();
     }
+
 
 }

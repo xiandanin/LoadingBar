@@ -60,6 +60,6 @@ LoadingConfig.setFactory(loadingFactory,dialogFactory);
 ![](Screenshot/loading_config.gif)
 
 
-更多玩法等你发掘，有问题或者建议请在issues提出
+更多玩法等你发掘，有问题或者建议可以在issues提出
 
 ###### Android交流QQ群:146262062

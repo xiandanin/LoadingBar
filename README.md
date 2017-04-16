@@ -1,32 +1,64 @@
 # LoadingBar
 
-###Screenshot
-![Example1](Screenshot/Screenshot.gif)
-
+##快速开始
 ###Android Studio - 在build.gradle中引入
 ```java
-compile 'com.dyhdyh.loadingbar:loadingbar:1.3'
+compile 'com.dyhdyh.loadingbar:loadingbar:1.4.0'
 ```
-<br/>
-####Example
+####LoadingBar
 ```java
-//显示loading(父容器)
-//如果传入的parent是getWindow().getDecorView()，Loading就会作用于整个屏幕
-LoadingBar.show(parent); 
+//默认样式 loading将会覆盖在parent的内容上面
+LoadingBar.make(parent).show();
 
-//显示loading(父容器,自定义样式View,自定义样式View的点击事件)
-LoadingBar.show(parent,customView,customViewClickListener); 
+//自定义样式
+LoadingBar.make(parent,loadingFactory).show();
 
-//隐藏单个loading(这里的parent就是show方法传入的parent)
+//完全自定义
+LoadingBar.make(parent,loadingFactory)
+        .setOnClickListener(clickListener)//点击事件
+        .setOnLoadingBarListener(loadingBarListener)//当loadingbar取消的时候回调
+        .show();
+        
+//取消Loading
 LoadingBar.cancel(parent);
+```
+![](Screenshot/loadingbar.gif)
+####LoadingDialog
+```java
+//默认样式
+LoadingDialog.make(context).show();
 
-//隐藏所有loading
-LoadingBar.cancelAll();
+//自定义样式
+LoadingDialog.make(context, dialogFactory).show();
+
+//完全自定义
+LoadingDialog.make(context, dialogFactory)
+           .setMessage(message)//提示消息
+           .setCancelable(cancelable)
+           .show();
+
+//设置更多属性
+Dialog dialog = LoadingDialog.make(context, dialogFactory)
+           .setMessage(message)//提示消息
+           .setCancelable(cancelable)
+           .create();
+dialog.setOnCancelListener(cancelListener);
+dialog.set...
+dialog.show();
+           
+//取消Loading
+LoadingDialog.cancel();
+```
+![](Screenshot/loadingdialog.gif)
+
+####全局配置
+```java
+//自定义样式并应用于全局
+LoadingConfig.setFactory(loadingFactory,dialogFactory);
 
 ```
+![](Screenshot/loading_config.gif)
 
-####Warning
-show方法中传的parent，目前仅支持FrameLayout|RelativeLayout|DrawerLayout|CoordinatorLayout|CardView，这样才能覆盖在内容上面。
-
-
+</br>
+更多玩法等你发掘，有问题或者建议请在issues提出
 ######Android交流QQ群:146262062

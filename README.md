@@ -1,5 +1,8 @@
 # LoadingBar
 
+## 示例apk
+![](loadingbar-example.png)
+
 ## 快速开始
 ### Android Studio - 在build.gradle中引入
 ```java

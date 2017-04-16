@@ -18,7 +18,13 @@
         <activity
             android:name=".MutiFragmentActivity"/>
         <activity
-            android:name=".ListViewActivity"/>
+            android:name=".ListLoadingActivity"/>
+        <activity
+            android:name=".LoadingBarActivity"
+            android:label="LoadingBar"/>
+        <activity
+            android:name=".LoadingDialogActivity"
+            android:label="LoadingDialog"/>
     </application>
 
 </manifest>

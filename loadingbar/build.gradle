@@ -2,17 +2,16 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.3"
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 14
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.3"
+        versionCode 4
+        versionName version
     }
     buildTypes {
         release {
@@ -24,20 +23,18 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.4.0'
 }
 
-def siteUrl = 'https://github.com/dengyuhan/LoadingBar'
-def gitUrl = 'https://github.com/dengyuhan/LoadingBar.git'
-group = "com.dyhdyh.loadingbar"
-
-
+version = "${library_version}"
+group = "${library_group_id}"
 install {
     repositories.mavenInstaller {
         pom {
             project {
                 packaging 'aar'
-                name '操作Loading的组件http://blog.csdn.net/aa464971/article/details/51914869'     //项目描述
-                url siteUrl
+                name "${description}"     //项目描述
+                url "${site_url}"
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
@@ -46,15 +43,15 @@ install {
                 }
                 developers {
                     developer {
-                        id 'dengyuhan'        //填写开发者的一些基本信息
-                        name 'dengyuhan'    //填写开发者的一些基本信息
-                        email '22309946@qq.com'   //填写开发者的一些基本信息
+                        id "${author_id}"        //填写开发者的一些基本信息
+                        name "${author_name}"    //填写开发者的一些基本信息
+                        email "${author_email}"   //填写开发者的一些基本信息
                     }
                 }
                 scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
+                    connection "${git_url}"
+                    developerConnection "${git_url}"
+                    url "${site_url}"
                 }
             }
         }
@@ -78,7 +75,7 @@ artifacts {
     archives sourcesJar
 }
 javadoc {
-    options{
+    options {
         encoding "UTF-8"
         charSet 'UTF-8'
         author true
@@ -94,9 +91,9 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "LoadingBar"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
+        name = "${library_name}"
+        websiteUrl = "${site_url}"
+        vcsUrl = "${git_url}"
         licenses = ["Apache-2.0"]
         publish = true
     }

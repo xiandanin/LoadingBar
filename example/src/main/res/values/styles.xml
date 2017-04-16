@@ -6,6 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
+
+    <style name="Dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="Dialog_Scale_Animation">
+        <item name="android:windowEnterAnimation">@anim/scale_center_enter</item>
+        <item name="android:windowExitAnimation">@anim/scale_center_exit</item>
+    </style>
+
+    <style name="Dialog_Alpha_Animation">
+        <item name="android:windowEnterAnimation">@anim/alpha_enter</item>
+        <item name="android:windowExitAnimation">@anim/alpha_exit</item>
+    </style>
 </resources>

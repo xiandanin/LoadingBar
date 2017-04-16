@@ -1,91 +1,75 @@
 package com.dyhdyh.loadingbar.example;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dyhdyh.widget.loadingbar.LoadingBar;
+import com.dyhdyh.widget.loading.LoadingConfig;
+import com.dyhdyh.widget.loading.factory.DialogFactory;
+import com.dyhdyh.widget.loading.factory.LoadingFactory;
 
 public class MainActivity extends AppCompatActivity {
-    View mParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mParent = findViewById(R.id.content);
     }
 
-    /**
-     * 显示默认样式Loading
-     *
-     * @param v
-     */
-    public void showLoading(View v) {
-        LoadingBar.show(mParent);
+
+    public void clickLoadingBar(View v) {
+        startActivity(new Intent(this, LoadingBarActivity.class));
     }
 
-    /**
-     * 显示自定义样式Loading
-     *
-     * @param v
-     */
-    public void showCustomLoading(View v) {
-        LoadingBar.show(mParent, View.inflate(this, R.layout.custom_loading, null), null);
+
+    public void clickLoadingDialog(View v) {
+        startActivity(new Intent(this, LoadingDialogActivity.class));
     }
 
-    /**
-     * 带有点击事件Loading
-     *
-     * @param v
-     */
-    public void showClickLoading(View v) {
-        LoadingBar.show(mParent, View.inflate(this, R.layout.custom_error, null), new View.OnClickListener() {
+
+    public void clickApplyGlobalConfig(View v) {
+        LoadingConfig.setFactory(new LoadingFactory() {
             @Override
-            public void onClick(View v) {
-                //在这里处理点击LoadingBar后的要做的操作
-                Toast.makeText(MainActivity.this, "重新加载", Toast.LENGTH_SHORT).show();
-                showLoading(v);
+            public View onCreateView(ViewGroup parent) {
+                return LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_global_loading, parent, false);
+            }
+        }, new DialogFactory() {
+            @Override
+            public Dialog onCreateDialog(Context context) {
+                Dialog dialog = new Dialog(context, R.style.Dialog);
+                dialog.setContentView(R.layout.layout_global_loading);
+                dialog.setCancelable(false);
+                return dialog;
+            }
+
+            @Override
+            public void setMessage(Dialog dialog, CharSequence message) {
+                TextView tv = (TextView) dialog.findViewById(R.id.tv_message);
+                if (tv != null) {
+                    tv.setText(message);
+                }
+            }
+
+            @Override
+            public int getAnimateStyleId() {
+                return R.style.Dialog_Scale_Animation;
             }
         });
-    }
-
-    /**
-     * 隐藏单个Loading
-     *
-     * @param v
-     */
-    public void hideLoading(View v) {
-        LoadingBar.cancel(mParent);
-    }
-
-    /**
-     * 取消所有Loading
-     *
-     */
-    public void cancelAll() {
-        LoadingBar.cancelAll();
-    }
-
-    /**
-     * 多页面显示Loading
-     *
-     * @param v
-     */
-    public void multiLoading(View v) {
-        startActivity(new Intent(this, MutiFragmentActivity.class));
+        Toast.makeText(this, "自定义Loading样式已经应用全局", Toast.LENGTH_SHORT).show();
     }
 
 
-    /**
-     * 显示列表的Loading
-     *
-     * @param v
-     */
-    public void listLoading(View v) {
-        startActivity(new Intent(this, ListViewActivity.class));
+    public void clickResetGlobalConfig(View v) {
+        LoadingConfig.defaultFactory();
+        Toast.makeText(this, "Loading还原到默认样式", Toast.LENGTH_SHORT).show();
     }
+
 
 }

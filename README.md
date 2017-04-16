@@ -1,11 +1,11 @@
 # LoadingBar
 
-##快速开始
-###Android Studio - 在build.gradle中引入
+## 快速开始
+### Android Studio - 在build.gradle中引入
 ```java
 compile 'com.dyhdyh.loadingbar:loadingbar:1.4.0'
 ```
-####LoadingBar
+#### LoadingBar
 ```java
 //默认样式 loading将会覆盖在parent的内容上面
 LoadingBar.make(parent).show();
@@ -23,7 +23,7 @@ LoadingBar.make(parent,loadingFactory)
 LoadingBar.cancel(parent);
 ```
 ![](Screenshot/loadingbar.gif)
-####LoadingDialog
+#### LoadingDialog
 ```java
 //默认样式
 LoadingDialog.make(context).show();
@@ -51,7 +51,7 @@ LoadingDialog.cancel();
 ```
 ![](Screenshot/loadingdialog.gif)
 
-####全局配置
+#### 全局配置
 ```java
 //自定义样式并应用于全局
 LoadingConfig.setFactory(loadingFactory,dialogFactory);
@@ -61,4 +61,4 @@ LoadingConfig.setFactory(loadingFactory,dialogFactory);
 
 </br>
 更多玩法等你发掘，有问题或者建议请在issues提出
-######Android交流QQ群:146262062
+###### Android交流QQ群:146262062

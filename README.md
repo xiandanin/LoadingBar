@@ -59,6 +59,7 @@ LoadingConfig.setFactory(loadingFactory,dialogFactory);
 ```
 ![](Screenshot/loading_config.gif)
 
-</br>
+
 更多玩法等你发掘，有问题或者建议请在issues提出
-######Android交流QQ群:146262062
+
+###### Android交流QQ群:146262062

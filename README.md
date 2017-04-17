@@ -77,6 +77,7 @@ LoadingConfig.setFactory(loadingFactory,dialogFactory);
 
 #### 资源释放
 其实LoadingBar在cancel的时候已经释放掉了，可以不用手动释放，但是这里也提供释放的方法，根据自己需要选择
+
 在Activity onDestroy调用，个人建议在BaseActivity，资源释放只会释放无效的资源
 ```java
 LoadingBar.release();

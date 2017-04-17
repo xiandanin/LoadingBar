@@ -14,11 +14,11 @@ import com.dyhdyh.widget.loading.factory.LoadingFactory;
 @Deprecated
 public class LoadingBar {
 
-    public void show(View parent) {
+    public static void show(View parent) {
         com.dyhdyh.widget.loading.bar.LoadingBar.make(parent).show();
     }
 
-    public void show(View parent, final View loadingView , View.OnClickListener listener) {
+    public static void show(View parent, final View loadingView , View.OnClickListener listener) {
         com.dyhdyh.widget.loading.bar.LoadingBar.make(parent, new LoadingFactory() {
             @Override
             public View onCreateView(ViewGroup parent) {
@@ -28,7 +28,7 @@ public class LoadingBar {
 
     }
 
-    public void cancel(View parent) {
+    public static void cancel(View parent) {
         com.dyhdyh.widget.loading.bar.LoadingBar.cancel(parent);
     }
 

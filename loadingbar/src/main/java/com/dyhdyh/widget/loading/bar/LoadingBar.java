@@ -2,6 +2,7 @@ package com.dyhdyh.widget.loading.bar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -26,6 +27,7 @@ import java.util.Map;
 public final class LoadingBar implements ILoadingBar {
 
     private static final Map<View, LoadingBar> LOADINGBARS = new HashMap<>();
+    private static int LOADING_LIMIT = 15;//默认15,超过会检查资源释放
 
     private ViewGroup mParent;
     private View mView;
@@ -112,22 +114,39 @@ public final class LoadingBar implements ILoadingBar {
      */
     private static void cancelAll() {
         Iterator<Map.Entry<View, LoadingBar>> it = LOADINGBARS.entrySet().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Map.Entry<View, LoadingBar> entry = it.next();
             cancel(entry.getKey());
         }
     }
 
 
-    private static void release() {
+    public static void release() {
+        release(LOADING_LIMIT);
+    }
+
+    /**
+     * 释放无用的资源
+     * <p>可在BaseActivity onDestroy调用</p>
+     * @param limit loading池的限制,超过数量才检查资源释放
+     */
+    public static void release(int limit) {
+        if (limit <= 0) {
+            limit = LOADING_LIMIT;
+        }
+        if (LOADINGBARS.size() < limit) {
+            return;
+        }
+        Log.d("LoadingBar","release before loading size - "+LOADINGBARS.size());
         Iterator<Map.Entry<View, LoadingBar>> it = LOADINGBARS.entrySet().iterator();
-        while(it.hasNext()){
+        while (it.hasNext()) {
             Map.Entry<View, LoadingBar> entry = it.next();
             Context context = entry.getKey().getContext();
-            if (context instanceof Activity&&((Activity) context).isFinishing()){
-                LOADINGBARS.remove(entry.getKey());
+            if (context instanceof Activity && ((Activity) context).isFinishing()) {
+                it.remove();
             }
         }
+        Log.d("LoadingBar","release after loading size - "+LOADINGBARS.size());
     }
 
     /**

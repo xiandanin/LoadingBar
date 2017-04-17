@@ -61,7 +61,7 @@ public class LoadingDialog implements ILoadingDialog {
     private boolean isValid() {
         if (mDialog != null) {
             Context context = mDialog.getContext();
-            if (context instanceof ContextWrapper){
+            if (context instanceof ContextWrapper) {
                 context = ((ContextWrapper) context).getBaseContext();
             }
             if (context instanceof Activity) {
@@ -78,16 +78,17 @@ public class LoadingDialog implements ILoadingDialog {
     }
 
     public static LoadingDialog make(Context context, DialogFactory factory) {
-        if (LOADINGDIALOG != null) {
-            LOADINGDIALOG.cancel();
-        }
+        cancel();
         LOADINGDIALOG = new LoadingDialog(context, factory);
         return LOADINGDIALOG;
     }
 
 
     public static void cancel() {
-        LOADINGDIALOG.cancelDialog();
+        if (LOADINGDIALOG != null) {
+            LOADINGDIALOG.cancelDialog();
+            LOADINGDIALOG = null;
+        }
     }
 
 

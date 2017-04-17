@@ -1,6 +1,5 @@
 package com.dyhdyh.widget.loading.factory;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
@@ -11,10 +10,10 @@ import com.dyhdyh.widget.loading.R;
  * author  dengyuhan
  * created 2017/4/16 04:08
  */
-public class MaterialDialogFactory implements DialogFactory {
+public class MaterialDialogFactory implements DialogFactory<ProgressDialog> {
 
     @Override
-    public Dialog onCreateDialog(Context context) {
+    public ProgressDialog onCreateDialog(Context context) {
         ProgressDialog dialog;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog = new ProgressDialog(context, R.style.Dialog_AppCompat_Loading);
@@ -28,10 +27,8 @@ public class MaterialDialogFactory implements DialogFactory {
     }
 
     @Override
-    public void setMessage(Dialog dialog, CharSequence message) {
-        if (dialog instanceof ProgressDialog) {
-            ((ProgressDialog) dialog).setMessage(message);
-        }
+    public void setMessage(ProgressDialog dialog, CharSequence message) {
+        dialog.setMessage(message);
     }
 
     @Override

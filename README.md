@@ -6,7 +6,7 @@
 ## 快速开始
 ### Android Studio - 在build.gradle中引入
 ```java
-compile 'com.dyhdyh.loadingbar:loadingbar:1.4.1'
+compile 'com.dyhdyh.loadingbar:loadingbar:1.4.2'
 ```
 #### LoadingBar
 ```java

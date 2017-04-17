@@ -86,4 +86,4 @@ LoadingBar.release();
 
 更多玩法等你发掘，有问题或者建议可以在issues提出
 
-###### Android交流QQ群:146262062
+###### Android交流群：[146262062](https://jq.qq.com/?_wv=1027&k=47XqOHO)

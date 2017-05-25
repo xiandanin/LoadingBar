@@ -96,13 +96,13 @@ public final class LoadingBar implements ILoadingBar {
     }
 
 
-    public void show(final View loadingView) {
-        make(mParent, new LoadingFactory() {
+    public static LoadingBar make(View parent, final View loadingView) {
+        return make(parent, new LoadingFactory() {
             @Override
             public View onCreateView(ViewGroup parent) {
                 return loadingView;
             }
-        }).show();
+        });
     }
 
     /**

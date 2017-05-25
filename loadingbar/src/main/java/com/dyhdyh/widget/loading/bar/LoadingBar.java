@@ -96,6 +96,15 @@ public final class LoadingBar implements ILoadingBar {
     }
 
 
+    public void show(final View loadingView) {
+        make(mParent, new LoadingFactory() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                return loadingView;
+            }
+        }).show();
+    }
+
     /**
      * 根据父节点取消单个loading
      *

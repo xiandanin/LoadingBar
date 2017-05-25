@@ -6,7 +6,7 @@
 ## 快速开始
 ### Android Studio - 在build.gradle中引入
 ```java
-compile 'com.dyhdyh.loadingbar:loadingbar:1.4.2'
+compile 'com.dyhdyh.loadingbar:loadingbar:1.4.3'
 ```
 #### LoadingBar
 ```java
@@ -14,6 +14,8 @@ compile 'com.dyhdyh.loadingbar:loadingbar:1.4.2'
 LoadingBar.make(parent).show();
 
 //自定义样式
+//提供两种形式,loadingView更简便,loadingFactory自由度更高
+LoadingBar.make(parent,loadingView).show();
 LoadingBar.make(parent,loadingFactory).show();
 
 //完全自定义

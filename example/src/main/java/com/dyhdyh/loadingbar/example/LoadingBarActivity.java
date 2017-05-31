@@ -27,7 +27,7 @@ public class LoadingBarActivity extends BaseActivity {
 
     public void clickLoading(View v) {
         LoadingBar.make(mParent).show();
-        //LoadingBar.make(mParent).show(loadingView);
+        //LoadingBar.make(mParent,loadingView).show();
     }
 
 

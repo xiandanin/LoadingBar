@@ -77,7 +77,7 @@ LoadingConfig.setFactory(loadingFactory,dialogFactory);
 ```
 ![](Screenshot/loading_config.gif)
 
-#### resource release
+#### Resource Release
 In fact, LoadingBar in the cancel time, has been released,do not need to manually release,but here also provides a release method,according to their own needs.
 
 If you want to manually call, I recommend at `BaseActivity` `onDestroy`,resource release only releases invalid resources.

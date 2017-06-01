@@ -1,5 +1,6 @@
 # LoadingBar
 
+[English Document](https://github.com/dengyuhan/LoadingBar/blob/master/README-EN.md)
 ### 示例apk
 ![](loadingbar-example.png)
 

@@ -20,8 +20,8 @@ LoadingBar.make(parent,loadingFactory).show();
 
 //fully customizable
 LoadingBar.make(parent,loadingFactory)
-        .setOnClickListener(clickListener)//点击事件
-        .setOnLoadingBarListener(loadingBarListener)//当loadingbar取消的时候回调
+        .setOnClickListener(clickListener)
+        .setOnLoadingBarListener(loadingBarListener)
         .show();
         
 //cancel loading
@@ -38,7 +38,7 @@ LoadingDialog.make(context, dialogFactory).show();
 
 //fully customizable
 LoadingDialog.make(context, dialogFactory)
-           .setMessage(message)//提示消息
+           .setMessage(message)
            .setCancelable(cancelable)
            .show();
 

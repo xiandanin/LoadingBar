@@ -4,7 +4,7 @@
 ![](loadingbar-example.png)
 
 ## Quick Start
-### Android Studio - 在build.gradle中引入
+### Android Studio - Introduced in build.gradle
 ```java
 compile 'com.dyhdyh.loadingbar:loadingbar:1.4.4'
 ```

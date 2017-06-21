@@ -2,7 +2,9 @@ package com.dyhdyh.widget.loading.bar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -105,6 +107,16 @@ public final class LoadingBar implements ILoadingBar {
         });
     }
 
+
+    public static LoadingBar make(View parent, @LayoutRes final int loadingResId) {
+        return make(parent, new LoadingFactory() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                return LayoutInflater.from(parent.getContext()).inflate(loadingResId, parent, false);
+            }
+        });
+    }
+
     /**
      * 根据父节点取消单个loading
      *
@@ -137,6 +149,7 @@ public final class LoadingBar implements ILoadingBar {
     /**
      * 释放无用的资源
      * <p>可在BaseActivity onDestroy调用</p>
+     *
      * @param limit loading池的限制,超过数量才检查资源释放
      */
     public static void release(int limit) {
@@ -146,7 +159,7 @@ public final class LoadingBar implements ILoadingBar {
         if (LOADINGBARS.size() < limit) {
             return;
         }
-        Log.d("LoadingBar","release before loading size - "+LOADINGBARS.size());
+        Log.d("LoadingBar", "release before loading size - " + LOADINGBARS.size());
         Iterator<Map.Entry<View, LoadingBar>> it = LOADINGBARS.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<View, LoadingBar> entry = it.next();
@@ -155,7 +168,7 @@ public final class LoadingBar implements ILoadingBar {
                 it.remove();
             }
         }
-        Log.d("LoadingBar","release after loading size - "+LOADINGBARS.size());
+        Log.d("LoadingBar", "release after loading size - " + LOADINGBARS.size());
     }
 
     /**

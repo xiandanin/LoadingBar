@@ -33,11 +33,13 @@ public final class LoadingBar implements ILoadingBar {
 
     private ViewGroup mParent;
     private View mView;
+    private LoadingFactory mLoadingFactory;
     private OnLoadingBarListener mListener;
 
     private LoadingBar(ViewGroup parent, LoadingFactory factory) {
-        mParent = parent;
-        mView = factory.onCreateView(mParent);
+        this.mParent = parent;
+        this.mLoadingFactory = factory;
+        this.mView = this.mLoadingFactory.onCreateView(mParent);
     }
 
 
@@ -80,6 +82,14 @@ public final class LoadingBar implements ILoadingBar {
     public LoadingBar setOnLoadingBarListener(OnLoadingBarListener mListener) {
         this.mListener = mListener;
         return this;
+    }
+
+    public View getView() {
+        return mView;
+    }
+
+    public LoadingFactory getLoadingFactory() {
+        return mLoadingFactory;
     }
 
     public static LoadingBar make(View parent) {

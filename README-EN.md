@@ -6,7 +6,7 @@
 ## Quick Start
 ### Android Studio - Introduced in build.gradle
 ```java
-compile 'com.dyhdyh.loadingbar:loadingbar:1.4.4'
+compile 'com.dyhdyh.loadingbar:loadingbar:1.4.6'
 ```
 #### LoadingBar
 ```java

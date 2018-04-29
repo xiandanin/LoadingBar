@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Widget.AppCompat.Loading" parent="Widget.AppCompat.ProgressBar"></style>
+    <style name="Widget.AppCompat.Loading" parent="@style/Widget.AppCompat.ProgressBar" />
 
+
+    <style name="Dialog.AppCompat.Loading" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
 </resources>

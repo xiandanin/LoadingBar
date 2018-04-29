@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Widget.AppCompat.Loading.Horizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:colorAccent">?attr/colorAccent</item>
+        <item name="android:colorAccent">?android:attr/colorAccent</item>
     </style>
 </resources>

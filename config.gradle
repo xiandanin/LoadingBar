@@ -1,0 +1,45 @@
+ext {
+    android =
+            [
+                    applicationId    : "com.dyhdyh.loadingbar.example",
+
+                    //版本号
+                    versionCode      : 5,
+                    versionName      : "1.4.7",
+
+                    //sdk版本
+                    compileSdkVersion: 26,
+                    buildToolsVersion: "26.0.2",
+                    minSdkVersion    : 14,
+                    targetSdkVersion : 26,
+                    supportVersion   : "26.1.0",
+            ]
+
+    jcenter =
+            [
+                    //项目名称
+                    name       : "LoadingBar",
+                    groupId    : "com.dyhdyh.loadingbar",
+                    //项目地址
+                    siteUrl    : "https://github.com/dengyuhan/LoadingBar",
+                    //项目git地址
+                    gitUrl     : "https://github.com/dengyuhan/LoadingBar.git",
+                    //项目描述
+                    description: "极简使用的解耦Loading组件 - http://blog.csdn.net/aa464971/article/details/70197394",
+                    //开发者的一些基本信息
+                    authorId   : "dengyuhan",
+                    authorName : "dengyuhan",
+                    authorEmail: "22309946@qq.com",
+
+                    //开源协议
+                    licenses   : {
+                        license {
+                            name 'Apache-2.0'
+                            url 'https://opensource.org/licenses/Apache-2.0'
+                        }
+                    },
+                    licenseName: 'Apache-2.0'
+            ]
+
+
+}

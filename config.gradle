@@ -4,8 +4,8 @@ ext {
                     applicationId    : "com.dyhdyh.loadingbar.example",
 
                     //版本号
-                    versionCode      : 5,
-                    versionName      : "1.4.7",
+                    versionCode      : 6,
+                    versionName      : "1.4.8",
 
                     //sdk版本
                     compileSdkVersion: 26,

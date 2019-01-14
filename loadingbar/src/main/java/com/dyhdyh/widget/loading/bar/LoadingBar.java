@@ -194,6 +194,7 @@ public final class LoadingBar implements ILoadingBar {
         View suitableParent = parent;
         do {
             if (suitableParent instanceof FrameLayout || suitableParent instanceof RelativeLayout ||
+                    "android.support.constraint.ConstraintLayout".equals(suitableParent.getClass().getName()) ||
                     "android.support.v4.widget.DrawerLayout".equals(suitableParent.getClass().getName()) ||
                     "android.support.design.widget.CoordinatorLayout".equals(suitableParent.getClass().getName()) ||
                     "android.support.v7.widget.CardView".equals(suitableParent.getClass().getName())) {

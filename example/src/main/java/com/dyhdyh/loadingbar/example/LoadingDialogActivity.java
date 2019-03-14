@@ -1,16 +1,10 @@
 package com.dyhdyh.loadingbar.example;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.dyhdyh.loadingbar.example.factory.CustomDialogFactory;
-import com.dyhdyh.widget.loading.dialog.LoadingDialog;
 
 /**
  * LoadingDialog的例子
@@ -32,19 +26,19 @@ public class LoadingDialogActivity extends BaseActivity {
     }
 
     public void clickDefault(View v) {
-        LoadingDialog.make(this).show();
+        //LoadingDialog.make(this).show();
 
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                LoadingDialog.cancel();
+                //LoadingDialog.cancel();
             }
         }, 2000);
     }
 
     public void clickCustom(View v) {
-        Dialog dialog = LoadingDialog.make(this, new CustomDialogFactory())
+        /*Dialog dialog = LoadingDialog.make(this, new CustomDialogFactory())
                 .setMessage(edMessage.getText())//提示消息
                 .setCancelable(cbCancelable.isChecked())
                 .create();
@@ -61,7 +55,7 @@ public class LoadingDialogActivity extends BaseActivity {
             public void run() {
                 LoadingDialog.cancel();
             }
-        }, 2000);
+        }, 2000);*/
     }
 
 

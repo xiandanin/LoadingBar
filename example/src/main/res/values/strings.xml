@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LoadingBar</string>
+
+    <string name="label_view_option">Loading View策略</string>
+    <string name="label_view_option_cover">CoverParentStrategy</string>
+    <string name="label_view_option_simple">SimpleParentStrategy</string>
 </resources>

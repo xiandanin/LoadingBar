@@ -3,11 +3,6 @@ package com.dyhdyh.loadingbar.example;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-
-import com.dyhdyh.loadingbar.example.factory.CustomLoadingFactory;
-import com.dyhdyh.widget.loading.bar.LoadingBar;
-import com.dyhdyh.widget.loading.bar.OnLoadingBarListener;
 
 /**
  * LoadingBar的例子
@@ -26,14 +21,14 @@ public class LoadingBarActivity extends BaseActivity {
 
 
     public void clickLoading(View v) {
-        LoadingBar.make(mParent).show();
+        //LoadingBar.make(mParent).show();
         //LoadingBar.make(mParent,loadingView).show();
         //LoadingBar.make(mParent,R.layout.layout_custom).show();
     }
 
 
     public void clickCustomLoading(View v) {
-        LoadingBar.make(mParent,new CustomLoadingFactory())
+        /*LoadingBar.make(mParent,new CustomLoadingFactory())
                 .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,12 +39,12 @@ public class LoadingBarActivity extends BaseActivity {
             public void onCancel(View parent) {
                 Toast.makeText(LoadingBarActivity.this, "Loading取消了", Toast.LENGTH_SHORT).show();
             }
-        }).show();
+        }).show();*/
     }
 
 
     public void clickCancelLoading(View v) {
-        LoadingBar.cancel(mParent);
+        //LoadingBar.cancel(mParent);
     }
 
 

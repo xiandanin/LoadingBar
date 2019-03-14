@@ -23,5 +23,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$rootProject.ext.android.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.android.supportVersion"
-    compile project(':loadingbar')
+    implementation project(':loadingbar')
+    implementation 'com.wang.avi:library:2.1.3'
 }

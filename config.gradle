@@ -4,8 +4,8 @@ ext {
                     applicationId    : "com.dyhdyh.loadingbar.example",
 
                     //版本号
-                    versionCode      : 6,
-                    versionName      : "1.4.8",
+                    versionCode      : 7,
+                    versionName      : "2.0.0",
 
                     //sdk版本
                     compileSdkVersion: 26,
@@ -19,7 +19,7 @@ ext {
             [
                     //项目名称
                     name       : "LoadingBar",
-                    groupId    : "com.dyhdyh.loadingbar",
+                    groupId    : "com.dyhdyh.loadingbar2",
                     //项目地址
                     siteUrl    : "https://github.com/dengyuhan/LoadingBar",
                     //项目git地址

@@ -5,20 +5,20 @@ ext {
 
                     //版本号
                     versionCode      : 7,
-                    versionName      : "2.0.0",
+                    versionName      : "2.0.0-beta",
 
                     //sdk版本
-                    compileSdkVersion: 26,
-                    buildToolsVersion: "26.0.2",
+                    compileSdkVersion: 28,
+                    buildToolsVersion: "28.0.3",
                     minSdkVersion    : 14,
-                    targetSdkVersion : 26,
-                    supportVersion   : "26.1.0",
+                    targetSdkVersion : 28,
+                    supportVersion   : "28.0.0",
             ]
 
     jcenter =
             [
                     //项目名称
-                    name       : "LoadingBar",
+                    name       : "LoadingBar2",
                     groupId    : "com.dyhdyh.loadingbar2",
                     //项目地址
                     siteUrl    : "https://github.com/dengyuhan/LoadingBar",

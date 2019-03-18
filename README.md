@@ -39,6 +39,8 @@ LoadingBar.dialog(context).cancel();
 LoadingBar.view(parent)
         //通过工厂设置样式
         //.setFactory(new CustomViewFactory())
+        //通过View设置样式
+        //.setFactoryFromView(view)
         //通过布局ID设置样式
         .setFactoryFromResource(R.layout.layout_custom)
         //携带参数
@@ -67,6 +69,8 @@ public class CustomViewFactory implements LoadingFactory<ViewGroup, View> {
 LoadingBar.dialog(context)
         //通过工厂设置样式
         //.setFactory(new CustomDialogFactory())
+        //通过View设置样式
+        //.setFactoryFromView(view)
         //通过布局ID设置样式
         .setFactoryFromResource(R.layout.layout_custom)
         //携带参数

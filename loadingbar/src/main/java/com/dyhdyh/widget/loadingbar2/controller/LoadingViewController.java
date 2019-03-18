@@ -1,5 +1,7 @@
 package com.dyhdyh.widget.loadingbar2.controller;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -30,7 +32,7 @@ public class LoadingViewController implements LoadingController<LoadingFactory<V
     }
 
     @Override
-    public void show(LoadingFactory<ViewGroup, View> factory, Object[] extras) {
+    public void show(@NonNull LoadingFactory<ViewGroup, View> factory, @Nullable Object[] extras) {
         final ParentStrategy strategy = getParentStrategy();
         ViewGroup realParent = strategy.findSuitableParent(mParent);
         if (mView == null) {

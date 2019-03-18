@@ -2,6 +2,7 @@ package com.dyhdyh.widget.loadingbar2.factory;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ public class MaterialDialogFactory implements LoadingFactory<Context, Dialog> {
     }
 
     @Override
-    public void updateStatus(Object[] extras) {
+    public void updateStatus(@Nullable Object[] extras) {
         if (extras != null && extras.length > 0 && extras[0] instanceof CharSequence) {
             mMessageView.setVisibility(View.VISIBLE);
             mMessageView.setText((CharSequence) extras[0]);

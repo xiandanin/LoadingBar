@@ -1,5 +1,7 @@
 package com.dyhdyh.widget.loadingbar2.factory;
 
+import android.support.annotation.Nullable;
+
 /**
  * Loading工厂 决定了loading的样式
  * @author dengyuhan
@@ -9,6 +11,6 @@ public interface LoadingFactory<P, L> {
 
     L onCreate(P params);
 
-    void updateStatus(Object[] extras);
+    void updateStatus(@Nullable Object[] extras);
 
 }

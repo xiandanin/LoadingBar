@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
     public void clickCustomView(View view) {
         LoadingBar.view(loadingContainer)
                 //.setFactory()
+                //.setFactoryFromView(view)
                 .setFactoryFromResource(R.layout.layout_custom)
                 .show();
     }

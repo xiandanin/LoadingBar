@@ -1,5 +1,6 @@
 package com.dyhdyh.widget.loadingbar2.factory;
 
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class MaterialViewFactory implements LoadingFactory<ViewGroup, View> {
     }
 
     @Override
-    public void updateStatus(Object[] extras) {
+    public void updateStatus(@Nullable Object[] extras) {
         if (extras != null && extras.length > 0 && extras[0] instanceof CharSequence) {
             mMessageView.setVisibility(View.VISIBLE);
             mMessageView.setText((CharSequence) extras[0]);

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
 
@@ -22,7 +24,7 @@ public class LoadingDialogController implements LoadingController<LoadingFactory
     }
 
     @Override
-    public void show(LoadingFactory<Context, Dialog> factory, Object[] extras) {
+    public void show(@NonNull LoadingFactory<Context, Dialog> factory, @Nullable Object[] extras) {
         //首次loading需创建
         if (mDialog == null) {
             mDialog = factory.onCreate(mContext);

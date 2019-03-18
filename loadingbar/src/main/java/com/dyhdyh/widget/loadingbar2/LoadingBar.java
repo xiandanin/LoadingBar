@@ -38,6 +38,15 @@ public final class LoadingBar {
         return this;
     }
 
+    public LoadingBar setFactoryFromView(View view) {
+        if (mController instanceof LoadingViewController) {
+            return setFactory(createViewFactoryFromView(view));
+        } else if (mController instanceof LoadingDialogController) {
+            return setFactory(createDialogFactoryFromView(view));
+        }
+        return this;
+    }
+
     public LoadingBar extras(Object[] extras) {
         this.mExtras = extras;
         return this;
@@ -75,11 +84,44 @@ public final class LoadingBar {
         return instance;
     }
 
+
     private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes int layoutId) {
         return new LoadingFactory<ViewGroup, View>() {
             @Override
             public View onCreate(ViewGroup parent) {
                 return LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
+            }
+
+            @Override
+            public void updateStatus(Object[] extras) {
+
+            }
+        };
+    }
+
+
+    private LoadingFactory<Context, Dialog> createDialogFactoryFromView(View view) {
+        return new LoadingFactory<Context, Dialog>() {
+            @Override
+            public Dialog onCreate(Context params) {
+                return new AlertDialog.Builder(params)
+                        .setView(view)
+                        .setCancelable(false)
+                        .create();
+            }
+
+            @Override
+            public void updateStatus(Object[] extras) {
+
+            }
+        };
+    }
+
+    private LoadingFactory<ViewGroup, View> createViewFactoryFromView(View view) {
+        return new LoadingFactory<ViewGroup, View>() {
+            @Override
+            public View onCreate(ViewGroup parent) {
+                return view;
             }
 
             @Override

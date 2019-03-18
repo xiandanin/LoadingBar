@@ -1,5 +1,8 @@
 package com.dyhdyh.widget.loadingbar2.controller;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
 
 /**
@@ -10,7 +13,7 @@ import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
  */
 public interface LoadingController<F extends LoadingFactory> {
 
-    void show(F factory, Object[] extras);
+    void show(@NonNull F factory, @Nullable Object[] extras);
 
     void cancel();
 

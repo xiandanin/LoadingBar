@@ -5,7 +5,7 @@
 LoadingBar已升级`2.0`，[1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x)版本无法迁移2.0，但[1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x)会持续维护
 
 ## 下载示例
-<img src="screenshot/download.png" width="100"/>
+<img src="screenshots/download.png" width="100"/>
 
 ## Gralde引入
 ```java
@@ -143,4 +143,4 @@ private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes
 ```
 
 ## 截图
-<img src="screenshot/loadingbar.gif" width="250"/>
+<img src="screenshots/loadingbar.gif" width="250"/>

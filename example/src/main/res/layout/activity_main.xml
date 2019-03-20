@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,124 +9,176 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <LinearLayout
-        android:id="@+id/layout_loading_view_content"
+    <RelativeLayout
+        android:id="@+id/layout_pool_count"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_label_loading_view"
+            android:id="@+id/tv_pool_count_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading View" />
+            android:text="Pool：" />
 
-        <RelativeLayout
-            android:id="@+id/layout_loading_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_loading_option"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="9dp"
-                android:text="@string/label_view_option"
-                android:visibility="gone" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_loading_option"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rb_option_cover"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_view_option_cover" />
-
-                <RadioButton
-                    android:id="@+id/rb_option_simple"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_view_option_simple" />
-            </RadioGroup>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_view_button"
+        <TextView
+            android:id="@+id/tv_pool_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_toRightOf="@id/tv_pool_count_label"
+            android:text="0" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_pool_count_label"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_option_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_pool_count"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_loading_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_label_loading_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading View"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:id="@+id/layout_loading_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_loading_option"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:text="@string/label_view_option"
+                    android:visibility="gone" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_loading_option"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <RadioButton
+                        android:id="@+id/rb_option_cover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_view_option_cover" />
+
+                    <RadioButton
+                        android:id="@+id/rb_option_simple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_view_option_simple" />
+                </RadioGroup>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_view_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickShowView"
+                    android:text="@string/label_show" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickCancelView"
+                    android:text="@string/label_cancel" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickCustomView"
+                    android:text="@string/label_custom" />
+
+            </LinearLayout>
 
             <Button
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="clickShowView"
-                android:text="显示" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="clickCancelView"
-                android:text="隐藏" />
+                android:layout_below="@id/layout_view_button"
+                android:onClick="clickShowViewExtras"
+                android:text="@string/label_show_extra" />
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_view_button"
-            android:onClick="clickShowViewExtras"
-            android:text="显示并携带参数" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clickCustomView"
-            android:text="自定义" />
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
-
-        <TextView
-            android:id="@+id/tv_label_loading_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loading Dialog" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_label_loading_dialog"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <Button
+            <TextView
+                android:id="@+id/tv_label_loading_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loading Dialog"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="clickShowDialog"
-                android:text="显示" />
+                android:layout_below="@id/tv_label_loading_dialog"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickShowDialog"
+                    android:text="@string/label_show" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="clickCustomDialog"
+                    android:text="@string/label_custom" />
+            </LinearLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="clickShowDialogExtras"
-                android:text="显示并更新状态" />
-
+                android:text="@string/label_show_extra" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/layout_loading_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/layout_option_action"
         android:layout_marginTop="@dimen/activity_vertical_margin" />
 
-</LinearLayout>
+
+</RelativeLayout>

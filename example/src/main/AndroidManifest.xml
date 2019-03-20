@@ -17,12 +17,6 @@
         </activity>
         <activity
             android:name=".ListLoadingActivity"/>
-        <activity
-            android:name=".LoadingBarActivity"
-            android:label="LoadingBar"/>
-        <activity
-            android:name=".LoadingDialogActivity"
-            android:label="LoadingDialog"/>
     </application>
 
 </manifest>

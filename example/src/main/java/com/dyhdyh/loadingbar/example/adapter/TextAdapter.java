@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dyhdyh.loadingbar.example.R;
+import com.dyhdyh.widget.loadingbar2.LoadingBar;
 
 import java.util.List;
 
@@ -18,12 +19,10 @@ import java.util.List;
  */
 public class TextAdapter extends RecyclerView.Adapter<TextAdapter.Holder> {
     private List<ExampleModel> mData;
-    private RecyclerView.LayoutManager mLayoutManager;
     private Handler mHandler = new Handler();
 
-    public TextAdapter(List<ExampleModel> data, RecyclerView.LayoutManager manager) {
+    public TextAdapter(List<ExampleModel> data) {
         this.mData = data;
-        this.mLayoutManager = manager;
     }
 
     @Override
@@ -35,23 +34,19 @@ public class TextAdapter extends RecyclerView.Adapter<TextAdapter.Holder> {
     public void onBindViewHolder(final Holder holder, int position) {
         final ExampleModel model = mData.get(position);
         holder.tv.setText(model.getText());
-        /*if (model.isShow()) {
-            if (mLayoutManager instanceof GridLayoutManager) {
-                LoadingBar.make(holder.itemView, new MaterialFactory()).show();
-            } else {
-                LoadingBar.make(holder.itemView, new ProgressbarHorizontalFactory(model.getDuration())).show();
-            }
+        if (model.isShow()) {
+            LoadingBar.view(holder.itemView).show();
 
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     model.setShow(false);
-                    LoadingBar.cancel(holder.itemView);
+                    LoadingBar.view(holder.itemView).cancel();
                 }
             }, model.getDuration());
         } else {
-            LoadingBar.cancel(holder.itemView);
-        }*/
+            LoadingBar.view(holder.itemView).cancel();
+        }
     }
 
     @Override

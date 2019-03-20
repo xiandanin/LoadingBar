@@ -16,6 +16,11 @@ public class MaterialViewFactory implements LoadingFactory<ViewGroup, View> {
     private TextView mMessageView;
 
     @Override
+    public String getKey() {
+        return getClass().getName();
+    }
+
+    @Override
     public View onCreate(ViewGroup parent) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_material_loading, parent, false);
         mMessageView = view.findViewById(android.R.id.message);

@@ -11,7 +11,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
-        super.onTitleChanged(title + " - Android" + Build.VERSION.RELEASE, color);
+        super.onTitleChanged(title + " - Android " + Build.VERSION.RELEASE, color);
     }
 
     @Override

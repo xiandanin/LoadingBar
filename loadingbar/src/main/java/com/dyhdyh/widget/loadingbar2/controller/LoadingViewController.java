@@ -1,7 +1,11 @@
 package com.dyhdyh.widget.loadingbar2.controller;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +24,8 @@ public class LoadingViewController implements LoadingController<LoadingFactory<V
     private ViewGroup mRealParent;
     private View mView;
 
+    private String mFactoryKey;
+
     private ParentStrategy mParentStrategy;
 
     public LoadingViewController(View parent) {
@@ -35,19 +41,28 @@ public class LoadingViewController implements LoadingController<LoadingFactory<V
     public void show(@NonNull LoadingFactory<ViewGroup, View> factory, @Nullable Object[] extras) {
         final ParentStrategy strategy = getParentStrategy();
         ViewGroup realParent = strategy.findSuitableParent(mParent);
-        if (mView == null) {
+
+        final String factoryKey = factory.getKey();
+        final boolean changed = mFactoryKey == null || !mFactoryKey.equals(factoryKey);
+        Log.d("----------->", "view---show---->" + changed + "----->" + factoryKey + "----->" + mFactoryKey);
+
+        //如果跟已有的parent不一样 或者样式发生变化 就先移除之前的View
+        if (mRealParent != null && (mRealParent != realParent || changed)) {
+            mRealParent.removeView(mView);
+        }
+
+        //如果还没有View 或者样式发生变化 就重新创建
+        if (mView == null || changed) {
             this.mView = factory.onCreate(realParent);
         }
 
         factory.updateStatus(extras);
 
-        if (mRealParent != null && mRealParent != realParent) {
-            //如果跟已有的parent不一样 就先移除之前的
-            mRealParent.removeView(mView);
-        }
         this.mRealParent = realParent;
+        //没有父级才添加
         if (mRealParent != null && mView != null && mView.getParent() == null) {
             mRealParent.addView(mView);
+            this.mFactoryKey = factoryKey;
         }
     }
 
@@ -59,6 +74,22 @@ public class LoadingViewController implements LoadingController<LoadingFactory<V
         mParent = null;
         mRealParent = null;
         mView = null;
+        mFactoryKey = null;
+    }
+
+    @Override
+    public boolean isCanRecycled() {
+        if (mRealParent != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                return !mRealParent.isAttachedToWindow();
+            } else {
+                final Context context = mRealParent.getContext();
+                if (context instanceof Activity) {
+                    return ((Activity) context).isFinishing();
+                }
+            }
+        }
+        return false;
     }
 
     protected ParentStrategy getParentStrategy() {

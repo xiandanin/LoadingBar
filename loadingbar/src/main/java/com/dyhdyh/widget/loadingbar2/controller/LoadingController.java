@@ -17,4 +17,9 @@ public interface LoadingController<F extends LoadingFactory> {
 
     void cancel();
 
+    /**
+     * 是否可以被回收
+     * @return
+     */
+    boolean isCanRecycled();
 }

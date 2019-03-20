@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,10 @@ import com.dyhdyh.widget.loadingbar2.controller.LoadingViewController;
 import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
 import com.dyhdyh.widget.loadingbar2.factory.MaterialDialogFactory;
 import com.dyhdyh.widget.loadingbar2.factory.MaterialViewFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author dengyuhan
@@ -66,9 +71,12 @@ public final class LoadingBar {
         LoadingBar instance = LoadingBarPool.get(context);
         if (instance == null) {
             instance = new LoadingBar();
-            instance.mFactory = new MaterialDialogFactory();
             instance.mController = new LoadingDialogController(context);
             LoadingBarPool.put(context, instance);
+        }
+        //如果不是默认的工厂 要默认设一个工厂
+        if (!(instance.mFactory instanceof MaterialDialogFactory)) {
+            instance.mFactory = new MaterialDialogFactory();
         }
         return instance;
     }
@@ -77,16 +85,42 @@ public final class LoadingBar {
         LoadingBar instance = LoadingBarPool.get(parent);
         if (instance == null) {
             instance = new LoadingBar();
-            instance.mFactory = new MaterialViewFactory();
             instance.mController = new LoadingViewController(parent);
             LoadingBarPool.put(parent, instance);
         }
+        //如果不是默认的工厂 要默认设一个工厂
+        if (!(instance.mFactory instanceof MaterialViewFactory)) {
+            instance.mFactory = new MaterialViewFactory();
+        }
         return instance;
+    }
+
+    public static int getPoolCount() {
+        return LoadingBarPool.getPool().size();
+    }
+
+    public static void release() {
+        final List<Integer> recycledKeys = new ArrayList<>();
+        final SparseArray<LoadingBar> pool = LoadingBarPool.getPool();
+        for (int i = 0; i < pool.size(); i++) {
+            int key = pool.keyAt(i);
+            if (pool.get(key).mController.isCanRecycled()) {
+                recycledKeys.add(key);
+            }
+        }
+        for (Integer key : recycledKeys) {
+            pool.get(key).cancel();
+        }
     }
 
 
     private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes int layoutId) {
         return new LoadingFactory<ViewGroup, View>() {
+            @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "ViewFactoryFromResource@%d", layoutId);
+            }
+
             @Override
             public View onCreate(ViewGroup parent) {
                 return LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
@@ -102,6 +136,11 @@ public final class LoadingBar {
 
     private LoadingFactory<Context, Dialog> createDialogFactoryFromView(View view) {
         return new LoadingFactory<Context, Dialog>() {
+            @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "DialogFactoryFrom#%s@%d", view.getClass().getName(), view.getId());
+            }
+
             @Override
             public Dialog onCreate(Context params) {
                 return new AlertDialog.Builder(params)
@@ -120,6 +159,11 @@ public final class LoadingBar {
     private LoadingFactory<ViewGroup, View> createViewFactoryFromView(View view) {
         return new LoadingFactory<ViewGroup, View>() {
             @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "ViewFactoryFrom#%s@%d", view.getClass().getName(), view.getId());
+            }
+
+            @Override
             public View onCreate(ViewGroup parent) {
                 return view;
             }
@@ -134,6 +178,11 @@ public final class LoadingBar {
 
     private LoadingFactory<Context, Dialog> createDialogFactoryFromResource(@LayoutRes int layoutId) {
         return new LoadingFactory<Context, Dialog>() {
+            @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "DialogFactoryFromResource@%d", layoutId);
+            }
+
             @Override
             public Dialog onCreate(Context params) {
                 final View view = LayoutInflater.from(params).inflate(layoutId, null);

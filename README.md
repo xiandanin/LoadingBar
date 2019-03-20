@@ -1,12 +1,15 @@
 # LoadingBar
 
-[English Document](https://github.com/dengyuhan/LoadingBar/blob/master/README-EN.md) ( Not Updated Yet )
+[English Document](README-EN.md)
 
 LoadingBar已升级`2.0`，[1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x)版本无法迁移2.0，但[1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x)会持续维护
 
+## 下载示例
+<img src="screenshot/download.png" width="100"/>
+
 ## Gralde引入
 ```java
-implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.0-beta'
+implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.0'
 ```
 
 ## 简单用法（默认样式）
@@ -32,7 +35,7 @@ LoadingBar.dialog(context).show();
 LoadingBar.dialog(context).cancel();
 ```
 
-## 进阶用法（自定义）
+## 进阶用法
 #### LoadingView
 
 ```
@@ -49,6 +52,16 @@ LoadingBar.view(parent)
 
 //通过工厂设置样式
 public class CustomViewFactory implements LoadingFactory<ViewGroup, View> {
+
+    /**
+     * 工厂类的标识符
+     * 在cancel()之前多次调用show()时，当key相同时不会重新调用onCreate
+     * @return
+     */
+    @Override
+    public String getKey() {
+        return getClass().getName();
+    }
 
     @Override
     public View onCreate(ViewGroup parent) {
@@ -79,12 +92,22 @@ LoadingBar.dialog(context)
 
 //通过工厂设置样式
 public class CustomDialogFactory implements LoadingFactory<Context, Dialog> {
+    /**
+     * 工厂类的标识符
+     * 在cancel()之前多次调用show()时，当key相同时不会重新调用onCreate
+     * @return
+     */
+    @Override
+    public String getKey() {
+        return getClass().getName();
+    }
 
     @Override
     public Dialog onCreate(Context params) {
         //这里return的dialog就是Loading的样式
         return new AlertDialog.Builder(params)
                 .setView(R.layout.layout_custom)
+                .setCancelable(false)
                 .create();
     }
 
@@ -95,3 +118,29 @@ public class CustomDialogFactory implements LoadingFactory<Context, Dialog> {
 }
 ```
 
+如果是通过`匿名内部类`创建的`Factory`，`getKey()`需要自定义以保证可以区分样式，例如用`layoutId`区分
+
+```
+private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes int layoutId) {
+        return new LoadingFactory<ViewGroup, View>() {
+
+            @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "ViewFactoryFromResource@%d", layoutId);
+            }
+
+            @Override
+            public View onCreate(ViewGroup parent) {
+                return LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
+            }
+
+            @Override
+            public void updateStatus(Object[] extras) {
+
+            }
+        };
+    }
+```
+
+## 截图
+<img src="screenshot/loadingbar.gif" width="250"/>

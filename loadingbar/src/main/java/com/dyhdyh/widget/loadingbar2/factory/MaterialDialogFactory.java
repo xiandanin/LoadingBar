@@ -20,6 +20,11 @@ public class MaterialDialogFactory implements LoadingFactory<Context, Dialog> {
     private TextView mMessageView;
 
     @Override
+    public String getKey() {
+        return getClass().getName();
+    }
+
+    @Override
     public Dialog onCreate(Context params) {
         final View view = LayoutInflater.from(params).inflate(R.layout.dialog_material_loading, null);
         mMessageView = view.findViewById(android.R.id.message);

@@ -1,89 +1,146 @@
 # LoadingBar
 
-### Example APK
-![](loadingbar-example.png)
+[中文文档](README.md)
 
-## Quick Start
-### Android Studio - Introduced in build.gradle
+LoadingBar has been upgraded to `2.0`, [1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x) cannot be migrated 2.0, [1.x](https://github.com/dengyuhan/LoadingBar/tree/1.x) will continue to maintain.
+
+## Download Example
+<img src="screenshot/download.png" width="100"/>
+
+## Gralde Import
 ```java
-implementation 'com.dyhdyh.loadingbar:loadingbar:1.4.7'
-
-//appcompat
-implementation "com.android.support:appcompat-v7:xxx"
+implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.0'
 ```
-#### LoadingBar
-```java
-//default style, loading will cover the contents of the parent
-LoadingBar.make(parent).show();
 
-//custom style
-//two forms, LoadingView is easier, LoadingFactory higher degree of freedom
-LoadingBar.make(parent,loadingView).show();
-LoadingBar.make(parent,loadingFactory).show();
-
-//fully customizable
-LoadingBar.make(parent,loadingFactory)
-        .setOnClickListener(clickListener)
-        .setOnLoadingBarListener(loadingBarListener)
-        .show();
-        
-//cancel loading
-LoadingBar.cancel(parent);
+## Simple Usage (default style)
+#### LoadingView
 ```
-![](Screenshot/loadingbar.gif)
+//show loading in the form of View.
+//the parent here needs to be an overlayable layout. If the layout is not overwriteable, will look up the hierarchy.
+//FrameLayout/RelativeLayout/ConstraintLayout/DrawerLayout/CoordinatorLayout/CardView
+LoadingBar.view(parent).show();
+
+//to cancel correctly, have to is the same parent as show().
+LoadingBar.view(parent).cancel();
+```
+
 #### LoadingDialog
-```java
-//default style
-LoadingDialog.make(context).show();
-
-//custom style
-LoadingDialog.make(context, dialogFactory).show();
-
-//fully customizable
-LoadingDialog.make(context, dialogFactory)
-           .setMessage(message)
-           .setCancelable(cancelable)
-           .show();
-
-//set more properties
-Dialog dialog = LoadingDialog.make(context, dialogFactory)
-           .setMessage(message)
-           .setCancelable(cancelable)
-           .create();
-dialog.setOnCancelListener(cancelListener);
-dialog.set...
-dialog.show();
-           
-//cancel loading
-LoadingDialog.cancel();
 ```
-![](Screenshot/loadingdialog.gif)
+//show loading in the form of Dialog.
+//note that context cannot be used ApplicationContext here.
+LoadingBar.dialog(context).show();
 
-#### Customize Factory
-```java
-public class CustomLoadingFactory implements LoadingFactory {
+//cancel dialog
+//to cancel correctly, have to is the same context as show().
+LoadingBar.dialog(context).cancel();
+```
+
+## Advanced Usage
+#### LoadingView
+
+```
+LoadingBar.view(parent)
+        //create a factory to change the style.
+        //.setFactory(new CustomViewFactory())
+        //create a view to change the style.
+        //.setFactoryFromView(view)
+        //set the style using the layout ID.
+        .setFactoryFromResource(R.layout.layout_custom)
+        //carrying extra info.
+        .extras(new Object[]{})
+        .show();
+
+//create a factory to change the style.
+public class CustomViewFactory implements LoadingFactory<ViewGroup, View> {
+
+    /**
+     * Factory class identifier
+     * If when calling show() multiple times before cancel(), will not call again onCreate() when key is the same.
+     * @return
+     */
+    @Override
+    public String getKey() {
+        return getClass().getName();
+    }
 
     @Override
-    public View onCreateView(ViewGroup parent) {
-        View loadingView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_custom, parent,false);
-        return loadingView;
+    public View onCreate(ViewGroup parent) {
+        //Here the view of return is the style of Loading
+        return LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_custom, parent, false);;
+    }
+
+    @Override
+    public void updateStatus(Object[] extras) {
+    	//Each call to show() will call back here, including the extras carried
     }
 }
 ```
 
-
-#### Global Configuration
-```java
-//customize styles and apply them to global
-LoadingConfig.setFactory(loadingFactory,dialogFactory);
+#### LoadingDialog
 
 ```
-![](Screenshot/loading_config.gif)
+LoadingBar.dialog(context)
+        //create a factory to change the style.
+        //.setFactory(new CustomDialogFactory())
+        //create a view to change the style.
+        //.setFactoryFromView(view)
+        //set the style using the layout ID.
+        .setFactoryFromResource(R.layout.layout_custom)
+        //carrying extra info.
+        .extras(new Object[]{})
+        .show();
 
-#### Resource Release
-In fact, LoadingBar in the cancel time, has been released,do not need to manually release,but here also provides a release method,according to their own needs.
+//create a factory to change the style.
+public class CustomDialogFactory implements LoadingFactory<Context, Dialog> {
+    /**
+     * Factory class identifier
+     * If when calling show() multiple times before cancel(), will not call again onCreate() when key is the same.
+     * @return
+     */
+    @Override
+    public String getKey() {
+        return getClass().getName();
+    }
 
-If you want to manually call, I recommend at `BaseActivity` `onDestroy`,resource release only releases invalid resources.
-```java
-LoadingBar.release();
+    @Override
+    public Dialog onCreate(Context params) {
+        //Here the dialog of return is the style of Loading
+        return new AlertDialog.Builder(params)
+                .setView(R.layout.layout_custom)
+                .setCancelable(false)
+                .create();
+    }
+
+    @Override
+    public void updateStatus(Object[] extras) {
+    	//Each call to show() will call back here, including the extras carried
+    }
+}
 ```
+
+If it is a `Factory` created by anonymous inner class, `getKey()` needs to be customized to ensure that styles can be distinguished, For example, use `layoutId` to distinguish.
+
+```
+private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes int layoutId) {
+        return new LoadingFactory<ViewGroup, View>() {
+
+            @Override
+            public String getKey() {
+                return String.format(Locale.getDefault(), "ViewFactoryFromResource@%d", layoutId);
+            }
+
+            @Override
+            public View onCreate(ViewGroup parent) {
+                return LayoutInflater.from(parent.getContext()).inflate(layoutId, parent, false);
+            }
+
+            @Override
+            public void updateStatus(Object[] extras) {
+
+            }
+        };
+    }
+```
+
+## 截图
+<img src="screenshot/loadingbar.gif" width="250"/>

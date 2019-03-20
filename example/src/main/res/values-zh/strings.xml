@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">LoadingBar</string>
 
+    <string name="label_view_option">Loading View策略</string>
+    <string name="label_view_option_cover">CoverParentStrategy</string>
+    <string name="label_view_option_simple">SimpleParentStrategy</string>
+
+    <string name="label_show">显示</string>
+    <string name="label_cancel">隐藏</string>
+    <string name="label_custom">自定义</string>
+    <string name="label_show_extra">显示并携带参数</string>
+    <string name="label_recycling">回收</string>
+    <string name="label_list">列表</string>
 </resources>

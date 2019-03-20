@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:clickable="true"
     android:paddingStart="30dp"
+    android:background="@android:color/white"
     android:paddingTop="10dp"
     android:paddingEnd="30dp"
     android:paddingBottom="10dp">
@@ -12,8 +14,8 @@
     <ProgressBar
         android:id="@android:id/progress"
         style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp" />

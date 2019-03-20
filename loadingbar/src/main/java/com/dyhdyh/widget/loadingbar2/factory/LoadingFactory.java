@@ -8,6 +8,12 @@ import android.support.annotation.Nullable;
  * created 2019/3/14 15:51
  */
 public interface LoadingFactory<P, L> {
+    /**
+     * 工厂类的标识符
+     * 在cancel()之前多次调用show()时，当key相同时不会重新调用onCreate
+     * @return
+     */
+    String getKey();
 
     L onCreate(P params);
 

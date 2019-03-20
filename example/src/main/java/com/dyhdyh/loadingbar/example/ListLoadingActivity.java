@@ -2,10 +2,7 @@ package com.dyhdyh.loadingbar.example;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.dyhdyh.loadingbar.example.adapter.ExampleModel;
 import com.dyhdyh.loadingbar.example.adapter.TextAdapter;
@@ -26,20 +23,11 @@ public class ListLoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_loading);
-        rv = (RecyclerView) this.findViewById(R.id.rv);
+        rv =  this.findViewById(R.id.rv);
 
-        clickGridLayoutManager(null);
-        rv.addItemDecoration(new DividerGridItemDecoration(this));
-    }
-
-    public void clickLinearLayoutManager(MenuItem item) {
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new TextAdapter(getTestData(),rv.getLayoutManager()));
-    }
-
-    public void clickGridLayoutManager(MenuItem item) {
         rv.setLayoutManager(new GridLayoutManager(this,3));
-        rv.setAdapter(new TextAdapter(getTestData(),rv.getLayoutManager()));
+        rv.addItemDecoration(new DividerGridItemDecoration(this));
+        rv.setAdapter(new TextAdapter(getTestData()));
     }
 
     private List<ExampleModel> getTestData() {
@@ -49,12 +37,5 @@ public class ListLoadingActivity extends BaseActivity {
         }
         return data;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_list_loading,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
 
 }

@@ -142,5 +142,5 @@ private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes
     }
 ```
 
-## 截图
+## Screenshot
 <img src="screenshots/loadingbar.gif" width="250"/>

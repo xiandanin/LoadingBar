@@ -6,7 +6,7 @@
 ## Quick Start
 ### Android Studio - Introduced in build.gradle
 ```java
-implementation 'com.dyhdyh.loadingbar:loadingbar:1.4.7'
+implementation 'com.dyhdyh.loadingbar:loadingbar:1.4.9'
 
 //appcompat
 implementation "com.android.support:appcompat-v7:xxx"

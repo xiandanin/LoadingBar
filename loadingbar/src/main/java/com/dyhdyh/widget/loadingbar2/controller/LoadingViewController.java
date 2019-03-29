@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,7 +43,6 @@ public class LoadingViewController implements LoadingController<LoadingFactory<V
 
         final String factoryKey = factory.getKey();
         final boolean changed = mFactoryKey == null || !mFactoryKey.equals(factoryKey);
-        Log.d("----------->", "view---show---->" + changed + "----->" + factoryKey + "----->" + mFactoryKey);
 
         //如果跟已有的parent不一样 或者样式发生变化 就先移除之前的View
         if (mRealParent != null && (mRealParent != realParent || changed)) {

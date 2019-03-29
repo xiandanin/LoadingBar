@@ -9,7 +9,7 @@ LoadingBar已升级`2.0`，[1.x](https://github.com/dengyuhan/LoadingBar/tree/1.
 
 ## Gralde引入
 ```java
-implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.0'
+implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.1'
 ```
 
 ## 简单用法（默认样式）
@@ -141,6 +141,37 @@ private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes
         };
     }
 ```
+
+## 其它API
+#### ControllerHandler
+```
+//使用ControllerHandler可以更进一步定制
+//下面的例子演示了 更换LoadingView的Parent查找策略
+LoadingBar.view(loadingContainer)
+        .setControllerHandler(new ControllerHandler() {
+            @Override
+            public void handle(LoadingController controller) {
+                //调整Parent查找策略
+                if (controller instanceof LoadingViewController) {
+                    ((LoadingViewController) controller).setParentStrategy(new SimpleParentStrategy());
+                }
+            }
+        }).show();
+```
+
+#### 手动释放
+当调用`cancel()`的时候，LoadingBar会自动释放，如果有不正常cancel的情况，可以调用`release`手动释放。
+
+```
+LoadingBar.release();
+```
+
+可以通过`getPoolCount`查看当前没有释放的资源数量。
+```
+LoadingBar.getPoolCount();
+```
+
+
 
 ## 截图
 <img src="screenshots/loadingbar.gif" width="250"/>

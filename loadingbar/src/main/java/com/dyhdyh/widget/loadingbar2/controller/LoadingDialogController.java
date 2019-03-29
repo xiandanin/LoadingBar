@@ -30,7 +30,6 @@ public class LoadingDialogController implements LoadingController<LoadingFactory
     public void show(@NonNull LoadingFactory<Context, Dialog> factory, @Nullable Object[] extras) {
         final String factoryKey = factory.getKey();
         final boolean changed = mFactoryKey == null || !mFactoryKey.equals(factoryKey);
-        Log.d("----------->", "dialog---show---->" + changed + "----->" + factoryKey);
 
         //如果样式发生变化 就先取消之前的
         if (changed && mDialog != null && mDialog.isShowing()) {

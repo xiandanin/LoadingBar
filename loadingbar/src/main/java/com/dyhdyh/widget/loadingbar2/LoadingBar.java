@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dyhdyh.widget.loadingbar2.controller.LoadingController;
+import com.dyhdyh.widget.loadingbar2.controller.ControllerHandler;
 import com.dyhdyh.widget.loadingbar2.controller.LoadingDialogController;
 import com.dyhdyh.widget.loadingbar2.controller.LoadingViewController;
 import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
@@ -27,6 +28,7 @@ import java.util.Locale;
 public final class LoadingBar {
     private LoadingFactory mFactory;
     private LoadingController mController;
+    private ControllerHandler mHandler;
     private Object[] mExtras;
 
     public LoadingBar setFactory(LoadingFactory factory) {
@@ -49,6 +51,11 @@ public final class LoadingBar {
         } else if (mController instanceof LoadingDialogController) {
             return setFactory(createDialogFactoryFromView(view));
         }
+        return this;
+    }
+
+    public LoadingBar setControllerHandler(ControllerHandler handler) {
+        handler.handle(mController);
         return this;
     }
 

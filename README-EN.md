@@ -9,7 +9,7 @@ LoadingBar has been upgraded to `2.0`, [1.x](https://github.com/dengyuhan/Loadin
 
 ## Gralde Import
 ```java
-implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.0'
+implementation 'com.dyhdyh.loadingbar2:loadingbar:2.0.1'
 ```
 
 ## Simple Usage (default style)

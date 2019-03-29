@@ -64,6 +64,9 @@ public class LoadingDialog implements ILoadingDialog {
             if (context instanceof ContextWrapper) {
                 context = ((ContextWrapper) context).getBaseContext();
             }
+            if (context instanceof ContextWrapper) {
+                context = ((ContextWrapper) context).getBaseContext();
+            }
             if (context instanceof Activity) {
                 if (!((Activity) context).isFinishing()) {
                     return true;

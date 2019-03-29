@@ -142,5 +142,34 @@ private LoadingFactory<ViewGroup, View> createViewFactoryFromResource(@LayoutRes
     }
 ```
 
+## Other API
+#### ControllerHandler
+```
+//Use ControllerHandler to further customize
+//The following example demonstrates the replacement of the Parent lookup strategy for LoadingView.
+LoadingBar.view(loadingContainer)
+        .setControllerHandler(new ControllerHandler() {
+            @Override
+            public void handle(LoadingController controller) {
+                //Set the Parent lookup strategy
+                if (controller instanceof LoadingViewController) {
+                    ((LoadingViewController) controller).setParentStrategy(new SimpleParentStrategy());
+                }
+            }
+        }).show();
+```
+
+#### Manual Release
+When calling `cancel()`, the LoadingBar will be automatically released. If there is an abnormal cancel, you can call `release` to manually release it.
+
+```
+LoadingBar.release();
+```
+
+You can check the number of resources that are not currently released by `getPoolCount`.
+```
+LoadingBar.getPoolCount();
+```
+
 ## Screenshot
 <img src="screenshots/loadingbar.gif" width="250"/>

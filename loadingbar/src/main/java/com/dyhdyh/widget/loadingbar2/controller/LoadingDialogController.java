@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.dyhdyh.widget.loadingbar2.factory.LoadingFactory;
 
@@ -66,9 +65,17 @@ public class LoadingDialogController implements LoadingController<LoadingFactory
     }
 
 
+    /**
+     * 验证Dialog是否可以执行show或cancel操作
+     *
+     * @return
+     */
     protected boolean isDialogValid() {
         if (mDialog != null) {
-            Context context = mDialog.getContext();
+            Context context = mDialog.getOwnerActivity();
+            if (context == null) {
+                context = mDialog.getContext();
+            }
             if (context instanceof ContextWrapper) {
                 context = ((ContextWrapper) context).getBaseContext();
             }
